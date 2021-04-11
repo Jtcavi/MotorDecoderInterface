@@ -20,15 +20,15 @@ CONTENT
            007 : 2804;  -- 	JUMP  Velocity
            008 : 8010;  -- 	CALL	Delay
            009 : 90F1;  -- 	IN		Quad
-           00A : 9804;  -- 	OUT 	Hex0
-           00B : 202C;  -- 	SUB		OldPos
-           00C : 9805;  -- 	OUT		Hex1
+           00A : 202C;  -- 	SUB		OldPos
+           00B : 6005;  -- 	SHIFT   5
+           00C : 9804;  -- 	OUT		Hex0
            00D : 90F1;  -- 	IN 		Quad 
            00E : 102C;  -- 	STORE	OldPos
            00F : 8800;  -- 	RETURN
            010 : 9802;  -- 	OUT	Timer ; writing something to timer resets it to 0 
-           011 : 9002;  -- 	IN	Timer		; time counts up to 10 in 1 sec or at 10 Hz 
-           012 : 6FFF;  -- 	ADDI	-1 		; waiting 1/10 of a second 
+           011 : 9002;  -- 	IN	Timer		; time counts up to 32 in 1 sec or at 32 Hz 
+           012 : 6FFF;  -- 	ADDI	-1 		; waiting 1/32 of a second 
            013 : 3011;  -- 	JNEG	WaitingLoop
            014 : 8800;  -- 	RETURN
            015 : 9000;  -- 	IN   Switches

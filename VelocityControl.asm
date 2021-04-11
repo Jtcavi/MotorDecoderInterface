@@ -21,10 +21,11 @@ Velocity:
 ReadVelocity:
 	CALL	Delay
 	IN		Quad
-	OUT 	Hex0
+	; OUT 	Hex0
 	SUB		OldPos
-	; SHIFT	1	
-	OUT		Hex1
+	; SHIFT	1
+	SHIFT   5
+	OUT		Hex0
 	IN 		Quad 
 	STORE	OldPos
 	RETURN
@@ -33,8 +34,8 @@ Delay:
 	OUT	Timer ; writing something to timer resets it to 0 
 
 WaitingLoop:
-	IN	Timer		; time counts up to 10 in 1 sec or at 10 Hz 
-	ADDI	-1 		; waiting 1/10 of a second 
+	IN	Timer		; time counts up to 32 in 1 sec or at 32 Hz 
+	ADDI	-1 		; waiting 1/32 of a second 
 	JNEG	WaitingLoop
 	RETURN
 	
