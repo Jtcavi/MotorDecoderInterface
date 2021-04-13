@@ -1,5 +1,5 @@
 Timing Analyzer report for SCOMP
-Sun Apr 11 15:50:34 2021
+Sun Apr 11 21:00:11 2021
 Quartus Prime Version 19.1.0 Build 670 09/22/2019 SJ Lite Edition
 
 
@@ -95,15 +95,15 @@ https://fpgasoftware.intel.com/eula.
 ; Number detected on machine ; 12          ;
 ; Maximum allowed            ; 6           ;
 ;                            ;             ;
-; Average used               ; 1.48        ;
+; Average used               ; 1.52        ;
 ; Maximum used               ; 6           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;  10.3%      ;
-;     Processor 3            ;   9.4%      ;
-;     Processor 4            ;   9.3%      ;
-;     Processors 5-6         ;   9.3%      ;
+;     Processor 2            ;  11.1%      ;
+;     Processor 3            ;  10.3%      ;
+;     Processor 4            ;  10.2%      ;
+;     Processors 5-6         ;  10.2%      ;
 +----------------------------+-------------+
 
 
@@ -112,7 +112,7 @@ https://fpgasoftware.intel.com/eula.
 +---------------+--------+--------------------------+
 ; SDC File Path ; Status ; Read at                  ;
 +---------------+--------+--------------------------+
-; SCOMP.sdc     ; OK     ; Sun Apr 11 15:50:31 2021 ;
+; SCOMP.sdc     ; OK     ; Sun Apr 11 21:00:09 2021 ;
 +---------------+--------+--------------------------+
 
 
@@ -1019,7 +1019,7 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 Info: *******************************************************************
 Info: Running Quartus Prime Timing Analyzer
     Info: Version 19.1.0 Build 670 09/22/2019 SJ Lite Edition
-    Info: Processing started: Sun Apr 11 15:50:30 2021
+    Info: Processing started: Sun Apr 11 21:00:08 2021
 Info: Command: quartus_sta SCOMP -c SCOMP
 Info: qsta_default_script.tcl version: #1
 Info (20030): Parallel compilation is enabled and will use 6 of the 6 processors detected
@@ -1189,9 +1189,9 @@ Info (332114): Report Metastability: Found 2 synchronizer chains.
 Info (332102): Design is not fully constrained for setup requirements
 Info (332102): Design is not fully constrained for hold requirements
 Info: Quartus Prime Timing Analyzer was successful. 0 errors, 3 warnings
-    Info: Peak virtual memory: 4870 megabytes
-    Info: Processing ended: Sun Apr 11 15:50:34 2021
-    Info: Elapsed time: 00:00:04
+    Info: Peak virtual memory: 4867 megabytes
+    Info: Processing ended: Sun Apr 11 21:00:11 2021
+    Info: Elapsed time: 00:00:03
     Info: Total CPU time (on all processors): 00:00:05
 
 

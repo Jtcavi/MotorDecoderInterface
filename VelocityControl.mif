@@ -10,49 +10,73 @@ CONTENT
   BEGIN
     [000..7FF] : 0000;  -- Default to NOP
 
-           000 : 0826;  -- 	LOAD VelControlOn
-           001 : 3804;  -- 	JPOS Velocity
-           002 : 0827;  -- 	LOAD PosControlOn
-           003 : 3815;  -- 	JPOS Position
-           004 : 9000;  -- 	IN   Switches
-           005 : 9821;  -- 	OUT   PWM
-           006 : 8008;  -- 	CALL  ReadVelocity
-           007 : 2804;  -- 	JUMP  Velocity
-           008 : 8010;  -- 	CALL	Delay
-           009 : 90F1;  -- 	IN		Quad
-           00A : 202C;  -- 	SUB		OldPos
-           00B : 6005;  -- 	SHIFT   5
-           00C : 9804;  -- 	OUT		Hex0
-           00D : 90F1;  -- 	IN 		Quad 
-           00E : 102C;  -- 	STORE	OldPos
-           00F : 8800;  -- 	RETURN
-           010 : 9802;  -- 	OUT	Timer ; writing something to timer resets it to 0 
-           011 : 9002;  -- 	IN	Timer		; time counts up to 32 in 1 sec or at 32 Hz 
-           012 : 6FFF;  -- 	ADDI	-1 		; waiting 1/32 of a second 
-           013 : 3011;  -- 	JNEG	WaitingLoop
-           014 : 8800;  -- 	RETURN
-           015 : 9000;  -- 	IN   Switches
-           016 : 9821;  -- 	OUT   PWM
-           017 : 90F1;  -- 	IN    Quad
-           018 : 8020;  -- 	CALL  Abs
-           019 : 9804;  -- 	OUT   Hex0
-           01A : 202A;  -- 	SUB   PosControl
-           01B : 401D;  -- 	JZERO End
-           01C : 2815;  -- 	JUMP  Position
-           01D : 0824;  -- 	LOAD  Zero
+           000 : 0839;  -- 	LOAD VelControlOn
+           001 : 3804;  -- 	JPOS VelConvert
+           002 : 083A;  -- 	LOAD PosControlOn
+           003 : 381D;  -- 	JPOS Position
+           004 : 802C;  -- 	CALL  MultLoop ; converts rpm to counts per second
+           005 : 9804;  -- 	OUT   Hex0
+           006 : 0840;  -- 	LOAD  CurrOutput
+           007 : 1804;  -- 	ADD   4 ; fast vel ramp
+           008 : 1040;  -- 	STORE CurrOutput
+           009 : 9821;  -- 	OUT   PWM ; out put to motor
+           00A : 800F;  -- 	CALL  ReadVelocity ; Read velocity
+           00B : 0841;  -- 	LOAD  ReadOutput ; read value from timer
+           00C : 203B;  -- 	SUB   VelControl ;
+           00D : 3006;  -- 	JNEG  CompVel ; If speed is still too low, repeat and increment pwm by 4
+           00E : 2825;  -- 	JUMP  End
+           00F : 8018;  -- 	CALL	Delay
+           010 : 90F1;  -- 	IN		Quad
+           011 : 203F;  -- 	SUB		OldPos
+           012 : 6005;  -- 	SHIFT   5
+           013 : 9804;  -- 	OUT		Hex0
+           014 : 1041;  -- 	STORE   ReadOutput
+           015 : 90F1;  -- 	IN 		Quad 
+           016 : 103F;  -- 	STORE	OldPos
+           017 : 8800;  -- 	RETURN
+           018 : 9802;  -- 	OUT	Timer ; writing something to timer resets it to 0 
+           019 : 9002;  -- 	IN      Timer   ; time counts up to 32 in 1 sec or at 32 Hz 
+           01A : 6FFF;  -- 	ADDI	-1 		; waiting 1/32 of a second 
+           01B : 3019;  -- 	JNEG	WaitingLoop
+           01C : 8800;  -- 	RETURN
+           01D : 9000;  -- 	IN   Switches
            01E : 9821;  -- 	OUT   PWM
-           01F : 281D;  -- 	JUMP  End
-           020 : 3823;  -- 	JPOS   Abs_r        ; If already positive, return
-           021 : 5825;  -- 	XOR    NegOne       ; Flip all bits
-           022 : 6801;  -- 	ADDI   1            ; Add one
-           023 : 8800;  -- 	RETURN
-           024 : 0000;  -- Zero:      DW 0
-           025 : FFFF;  -- NegOne:    DW -1
-           026 : 0001;  -- VelControlOn:    DW 1
-           027 : 0000;  -- PosControlOn:	 DW 0
-           028 : 000F;  -- VelControl:      DW &B01111
-           029 : 0019;  -- PosControlSpeed: DW &B11001
-           02A : 021C;  -- PosControl:      DW 540
-           02B : 0000;  -- Countprev:	 	 DW 0
-           02C : 0000;  -- OldPos: 		 DW 0 
+           01F : 90F1;  -- 	IN    Quad
+           020 : 8028;  -- 	CALL  Abs
+           021 : 9804;  -- 	OUT   Hex0
+           022 : 203D;  -- 	SUB   PosControl
+           023 : 4025;  -- 	JZERO End
+           024 : 281D;  -- 	JUMP  Position
+           025 : 0837;  -- 	LOAD  Zero
+           026 : 9821;  -- 	OUT   PWM
+           027 : 2825;  -- 	JUMP  End
+           028 : 382B;  -- 	JPOS   Abs_r        ; If already positive, return
+           029 : 5838;  -- 	XOR    NegOne       ; Flip all bits
+           02A : 6801;  -- 	ADDI   1            ; Add one
+           02B : 8800;  -- 	RETURN
+           02C : 083B;  -- 	LOAD   VelControl
+           02D : 183B;  -- 	ADD    VelControl
+           02E : 183B;  -- 	ADD    VelControl
+           02F : 183B;  -- 	ADD    VelControl
+           030 : 183B;  -- 	ADD    VelControl
+           031 : 183B;  -- 	ADD    VelControl
+           032 : 183B;  -- 	ADD    VelControl
+           033 : 183B;  -- 	ADD    VelControl
+           034 : 183B;  -- 	ADD    VelControl
+           035 : 103B;  -- 	STORE  VelControl ; stored in vel control variable
+           036 : 8800;  -- 	RETURN
+           037 : 0000;  -- Zero:      DW 0
+           038 : FFFF;  -- NegOne:    DW -1
+           039 : 0001;  -- VelControlOn:    DW 1
+           03A : 0000;  -- PosControlOn:	 DW 0
+           03B : 002D;  -- VelControl:      DW 45 ; integer between 30 and 60
+           03C : 0079;  -- PosControlSpeed: DW &B1111001
+           03D : 021C;  -- PosControl:      DW 540
+           03E : 0000;  -- Countprev:	 	 DW 0
+           03F : 0000;  -- OldPos: 		 DW 0
+           040 : 0000;  -- CurrOutput:	     DW &B0000000
+           041 : 0000;  -- ReadOutput:      DW 0
+           042 : 0001;  -- DirectionMode:   DW 1 
+           043 : 0080;  -- ForwardMask:     DW &B010000000 ; counterclockwise movement
+           044 : 0100;  -- ReverseMask:     DW &B100000000 ; clockwise movement
   END;
